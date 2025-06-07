@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marquee Text Modifier</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="file"], input[type="text"], button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button { background-color: #007bff; color: white; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+
+        .image-container { /* New container for image and canvas */
+            position: relative; /* For absolute positioning of canvas */
+            display: inline-block; /* Adjust as needed */
+            margin-top: 10px;
+            border: 1px solid #ddd; /* Border around the container */
+        }
+        .image-display { margin-top: 20px; text-align: center; }
+        .image-display img {
+            max-width: 100%; /* Make image responsive within container */
+            height: auto;
+            display: block; /* Remove extra space below image */
+        }
+        .image-display p { font-weight: bold; margin-bottom: 5px; }
+
+        #selectionCanvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: crosshair;
+            /* border: 1px dashed #000; /* For debugging canvas position */
+        }
+
+        #loader {
+             border: 5px solid #f3f3f3;
+             border-top: 5px solid #3498db;
+             border-radius: 50%;
+             width: 40px;
+             height: 40px;
+             animation: spin 1s linear infinite;
+             margin: 20px auto;
+             display: none;
+         }
+         @keyframes spin {
+             0% { transform: rotate(0deg); }
+             100% { transform: rotate(360deg); }
+         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Marquee Text Modifier</h1>
+
+        <div class="form-group">
+            <label for="imageUpload">1. Upload Image:</label>
+            <input type="file" id="imageUpload" name="imageFile" accept="image/png, image/jpeg">
+        </div>
+
+        <div class="image-display" id="originalImageSection" style="display: none;">
+            <p>Original Image (Click and drag to select marquee area):</p>
+            <div class="image-container"> {/* Container for image and canvas */}
+                <img id="uploadedImage" src="#" alt="Uploaded Image">
+                <canvas id="selectionCanvas"></canvas>
+            </div>
+        </div>
+
+        <div id="loader"></div>
+
+        <div class="form-group">
+            <label for="marqueeText">2. Enter Marquee Text:</label>
+            <input type="text" id="marqueeText" name="marqueeText" placeholder="Enter text for marquee">
+        </div>
+
+        <div class="form-group">
+            <button id="submitButton">Process Image</button>
+        </div>
+
+        <div class="image-display" id="processedImageSection" style="display: none;">
+            <p>Processed Image:</p>
+            <img id="processedImage" src="#" alt="Processed Image">
+            <br>
+            <a id="downloadLink" href="#" download="marquee_result.png" style="display:none;">Download Processed Image</a>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
